@@ -1,87 +1,12 @@
-const mobileMenuButton = document.getElementById('mobileMenuButton');
-const mobileNav = document.getElementById('mobileNav');
-
-mobileMenuButton?.addEventListener('click', () => {
-  const open = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-  mobileMenuButton.setAttribute('aria-expanded', String(!open));
-  mobileMenuButton.setAttribute('aria-label', open ? '메뉴 열기' : '메뉴 닫기');
-  if (mobileNav) mobileNav.hidden = open;
-});
-
-mobileNav?.querySelectorAll('a').forEach((link) => {
-  link.addEventListener('click', () => {
-    mobileNav.hidden = true;
-    mobileMenuButton?.setAttribute('aria-expanded', 'false');
-  });
-});
-
-const bookingTabs = document.querySelectorAll('[data-booking-tab]');
-const flightPanel = document.querySelector('[data-panel="flight"]');
-const lookupPanel = document.querySelector('[data-panel="lookup"]');
-const returnField = document.getElementById('returnField');
-const returnDate = document.getElementById('returnDate');
-const departDate = document.getElementById('departDate');
-const swapButton = document.getElementById('swapButton');
-const fromInput = document.getElementById('fromInput');
-const toInput = document.getElementById('toInput');
-const bookingForm = document.getElementById('bookingForm');
-const lookupForm = document.getElementById('lookupForm');
-const formMessage = document.getElementById('formMessage');
-const lookupMessage = document.getElementById('lookupMessage');
-
-function dateValue(date) {
-  const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
-  return local.toISOString().slice(0, 10);
-}
-
-if (departDate && returnDate) {
-  const today = new Date();
-  const depart = new Date(today); depart.setDate(today.getDate() + 14);
-  const back = new Date(today); back.setDate(today.getDate() + 19);
-  departDate.min = dateValue(today);
-  returnDate.min = dateValue(today);
-  departDate.value = dateValue(depart);
-  returnDate.value = dateValue(back);
-  departDate.addEventListener('change', () => {
-    returnDate.min = departDate.value || dateValue(today);
-    if (returnDate.value && returnDate.value < returnDate.min) returnDate.value = returnDate.min;
-  });
-}
-
-bookingTabs.forEach((tab) => {
-  tab.addEventListener('click', () => {
-    bookingTabs.forEach((item) => {
-      const active = item === tab;
-      item.classList.toggle('active', active);
-      item.setAttribute('aria-selected', String(active));
-    });
-    const mode = tab.dataset.bookingTab;
-    if (mode === 'lookup') {
-      if (flightPanel) flightPanel.hidden = true;
-      if (lookupPanel) lookupPanel.hidden = false;
-      return;
-    }
-    if (flightPanel) flightPanel.hidden = false;
-    if (lookupPanel) lookupPanel.hidden = true;
-    const oneWay = mode === 'oneway';
-    if (returnField) returnField.hidden = oneWay;
-    if (returnDate) returnDate.required = !oneWay;
-  });
-});
-
-swapButton?.addEventListener('click', () => {
-  if (!fromInput || !toInput) return;
-  const temp = fromInput.value;
-  fromInput.value = toInput.value;
-  toInput.value = temp;
-});
-
-bookingForm?.addEventListener('submit', (event) => {
-  event.preventDefault();
-  if (formMessage) formMessage.textContent = '현재 예약 페이지는 UI 데모입니다. 실제 예약 엔진은 추후 연결할 수 있습니다.';
-});
-
-lookupForm?.addEventListener('submit', (event) => {
-  event.preventDefault();
-  if (lookupMessage) lookupMessage.textContent = '현재 예약 조회는 UI 데모입니다.';
-});
+(()=>{
+const headerHost=document.getElementById('siteHeader'),footerHost=document.getElementById('siteFooter');
+const prefix=document.body.dataset.prefix||'../';
+const A=p=>prefix+p;
+if(headerHost){headerHost.innerHTML=`<header class="site-header"><div class="header-inner shell-wide"><a class="brand" href="${A('')}" aria-label="Stellaris Airlines 홈"><img class="brand-symbol-image" src="${A('assets/stellaris-symbol.png')}" alt=""><img class="brand-wordmark-image" src="${A('assets/stellaris-wordmark.png')}" alt="STELLARIS AIRLINES"></a><nav class="main-nav"><div class="nav-item"><a href="${A('about-us/')}">항공사 정보</a><div class="mega-menu"><div class="mega-inner shell-wide"><div class="mega-title"><span>STELLARIS AIRLINES</span><strong>항공사 정보</strong></div><div class="mega-links"><a href="${A('about-us/')}">항공사 소개</a><a href="${A('about-us/#promises')}">5가지 약속</a><a href="${A('group/')}">STELLARIS GROUP</a><a href="${A('our-fleets/')}">보유 항공기</a><a href="${A('fleets-cargo/')}">화물 항공기</a></div></div></div></div><div class="nav-item"><a href="${A('flight-information/')}">운항 정보</a><div class="mega-menu"><div class="mega-inner shell-wide"><div class="mega-title"><span>STELLARIS AIRLINES</span><strong>운항 정보</strong></div><div class="mega-links"><a href="${A('flight-information/')}">운항 정보</a><a href="${A('destinations/')}">노선 안내</a><a href="${A('flight-information/#domestic')}">국내선 네트워크</a><a href="${A('flight-information/#international')}">국제선 네트워크</a></div></div></div></div><div class="nav-item"><a href="${A('travel-info/')}">여행 준비</a><div class="mega-menu"><div class="mega-inner shell-wide"><div class="mega-title"><span>STELLARIS AIRLINES</span><strong>여행 준비</strong></div><div class="mega-links"><a href="${A('travel-info/')}">여행 준비</a><a href="${A('travel-info/#checkin')}">온라인 체크인</a><a href="${A('travel-info/#baggage')}">수하물</a><a href="${A('travel-info/#safety')}">탑승 전 안전수칙</a><a href="${A('wifi/')}">기내 Wi-Fi</a><a href="${A('inflight-entertainment/')}">엔터테인먼트</a></div></div></div></div><div class="nav-item"><a href="${A('support/')}">지원 센터</a><div class="mega-menu"><div class="mega-inner shell-wide"><div class="mega-title"><span>STELLARIS AIRLINES</span><strong>지원 센터</strong></div><div class="mega-links"><a href="${A('support/')}">고객 지원 & Q&A</a><a href="${A('find-your-reservations/')}">예약 조회</a><a href="${A('support/#booking')}">예약/항공권</a><a href="${A('support/#baggage')}">수하물 문의</a></div></div></div></div><div class="nav-item"><a href="${A('membership/')}">Star Miles</a></div></nav><div class="header-tools"><a class="book-link" href="${A('book-your-journey/')}">항공권 예약</a><a href="${A('find-your-reservations/')}">예약 조회</a><span class="tool-divider"></span><a href="${A('login/')}">로그인</a><button class="mobile-menu-button" id="mobileMenuButton" type="button" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button></div></div><div class="mobile-nav" id="mobileNav" hidden><a href="${A('book-your-journey/')}">항공권 예약</a><a href="${A('find-your-reservations/')}">예약 조회</a><a href="${A('about-us/')}">항공사 정보</a><a href="${A('flight-information/')}">운항 정보</a><a href="${A('destinations/')}">노선 안내</a><a href="${A('travel-info/')}">여행 준비</a><a href="${A('our-fleets/')}">보유 항공기</a><a href="${A('membership/')}">Star Miles</a><a href="${A('support/')}">지원 센터</a></div></header>`;}
+if(footerHost){footerHost.innerHTML=`<footer class="site-footer"><div class="shell footer-main"><a class="brand footer-brand" href="${A('')}"><img class="brand-symbol-image" src="${A('assets/stellaris-symbol.png')}" alt=""><img class="brand-wordmark-image" src="${A('assets/stellaris-wordmark.png')}" alt="STELLARIS AIRLINES"></a><div class="footer-columns"><div><strong>항공사</strong><a href="${A('about-us/')}">항공사 소개</a><a href="${A('group/')}">STELLARIS GROUP</a><a href="${A('our-fleets/')}">항공기</a></div><div><strong>여행</strong><a href="${A('book-your-journey/')}">항공권 예약</a><a href="${A('find-your-reservations/')}">예약 조회</a><a href="${A('destinations/')}">노선 안내</a></div><div><strong>서비스</strong><a href="${A('travel-info/')}">여행 준비</a><a href="${A('wifi/')}">기내 Wi-Fi</a><a href="${A('inflight-entertainment/')}">기내 엔터테인먼트</a></div><div><strong>지원</strong><a href="${A('support/')}">지원 센터</a><a href="${A('membership/')}">Star Miles</a></div></div></div><div class="shell footer-bottom"><span>© 2026 STELLARIS AIRLINES</span><div><a href="#">이용약관</a><a href="#">개인정보처리방침</a></div></div></footer>`;}
+const mobileButton=document.getElementById('mobileMenuButton'),mobileNav=document.getElementById('mobileNav');if(mobileButton&&mobileNav){mobileButton.addEventListener('click',()=>{const open=mobileButton.getAttribute('aria-expanded')==='true';mobileButton.setAttribute('aria-expanded',String(!open));mobileNav.hidden=open;});}
+document.querySelectorAll('.demo-form').forEach(form=>form.addEventListener('submit',e=>{e.preventDefault();let p=form.querySelector('.demo-message');if(!p){p=document.createElement('p');p.className='demo-message';p.style.cssText='margin:6px 0 0;color:#8e873f;font-size:12px';form.appendChild(p)}p.textContent='현재는 웹사이트 UI 데모입니다. 실제 예약·회원 시스템은 추후 연동됩니다.';}));
+const reservationTabs=document.querySelectorAll('[data-reservation-tab]');reservationTabs.forEach(btn=>btn.addEventListener('click',()=>{reservationTabs.forEach(x=>x.classList.toggle('active',x===btn));document.querySelectorAll('[data-reservation-panel]').forEach(p=>p.hidden=p.dataset.reservationPanel!==btn.dataset.reservationTab);}));
+const bookingTabs=document.querySelectorAll('[data-booking-tab]');bookingTabs.forEach(btn=>btn.addEventListener('click',()=>{bookingTabs.forEach(x=>x.classList.toggle('active',x===btn));const rf=document.getElementById('returnField');if(rf)rf.hidden=btn.dataset.bookingTab==='oneway';}));
+const swap=document.getElementById('swapButton'),from=document.getElementById('fromInput'),to=document.getElementById('toInput');if(swap&&from&&to){swap.addEventListener('click',()=>{[from.value,to.value]=[to.value,from.value];});}
+})();
