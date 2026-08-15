@@ -52,6 +52,8 @@ body{overflow-x:hidden}
 .auth-alt a{color:var(--olive-deep);font-weight:800}
 .demo-message{margin:6px 0 0;color:var(--olive-deep);font-size:12px;line-height:1.6}
 
+.site-footer::after{content:"CONTACT · stellarisairlines@gmail.com";display:block;padding:18px 24px;border-top:1px solid rgba(255,255,255,.12);background:var(--ink);color:rgba(255,255,255,.78);text-align:center;font-family:"Michroma","Noto Sans KR",sans-serif;font-size:10px;letter-spacing:.08em;line-height:1.6}
+
 @media(max-width:1540px){
   .header-inner{grid-template-columns:minmax(190px,245px) minmax(0,1fr) auto;gap:13px}
   .main-nav{gap:15px}.nav-item>a{font-size:12px}.header-tools{gap:7px}.header-tools .book-link{padding:9px 10px}
