@@ -24,6 +24,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Normalize browser titles
+        shell: bash
+        run: |
+          find . -type f -name '*.html' -print0 | xargs -0 perl -0pi -e 's#<title>.*?</title>#<title>Stellaris Airlines</title>#sg'
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 

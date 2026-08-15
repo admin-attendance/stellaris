@@ -1,76 +1,204 @@
 (()=>{
-const prefix=document.body.dataset.prefix||'./';
-const A=p=>prefix+p;
-const pathParts=location.pathname.split('/').filter(Boolean);
-const slug=pathParts[pathParts.length-1]||'home';
-document.body.classList.add(`page-${slug.replace(/[^a-z0-9-]/gi,'-')}`);
+'use strict';
+const scriptEl=document.currentScript;
+const rootURL=new URL('.',scriptEl?.src||location.href);
+const A=path=>new URL(path,rootURL).href;
+const pageId=document.body.dataset.page||location.pathname.split('/').filter(Boolean).pop()||'home';
+document.body.classList.add(`page-${String(pageId).replace(/[^a-z0-9-]/gi,'-')}`);
+document.title='Stellaris Airlines';
 
 if(!document.querySelector('link[data-stellaris-fixes]')){
   const link=document.createElement('link');
-  link.rel='stylesheet';link.href=A('fixes.css');link.dataset.stellarisFixes='true';
+  link.rel='stylesheet';
+  link.href=A('fixes.css');
+  link.dataset.stellarisFixes='true';
   document.head.appendChild(link);
 }
 
-const languages=[
-  ['ko','한국어'],['en-US','English (US)'],['en-GB','English (UK)'],['zh-CN','中文'],['ja','日本語'],['es','Español'],['fr','Français']
-];
-const languageControl=()=>`<label class="language-switcher" aria-label="언어 선택"><span class="language-label">LANG</span><select id="languageSelect">${languages.map(([v,l])=>`<option value="${v}">${l}</option>`).join('')}</select></label>`;
+const languageNames={
+  ko:'한국어',
+  'en-US':'English (US)',
+  'en-GB':'English (UK)',
+  'zh-CN':'中文',
+  ja:'日本語',
+  es:'Español',
+  fr:'Français'
+};
+const languageCodes=Object.keys(languageNames);
 
-const headerHost=document.getElementById('siteHeader'),footerHost=document.getElementById('siteFooter');
-if(headerHost){headerHost.innerHTML=`<header class="site-header"><div class="header-inner shell-wide"><a class="brand" href="${A('')}" aria-label="Stellaris Airlines 홈"><img class="brand-symbol-image" src="${A('assets/stellaris-symbol.png')}" alt=""><img class="brand-wordmark-image" src="${A('assets/stellaris-wordmark.png')}" alt="STELLARIS AIRLINES"></a><nav class="main-nav"><div class="nav-item"><a href="${A('about-us/')}">항공사 정보</a><div class="mega-menu"><div class="mega-inner shell-wide"><div class="mega-title"><span>STELLARIS AIRLINES</span><strong>항공사 정보</strong></div><div class="mega-links"><a href="${A('about-us/')}">항공사 소개</a><a href="${A('about-us/#promises')}">5가지 약속</a><a href="${A('group/')}">STELLARIS GROUP</a><a href="${A('our-fleets/')}">보유 항공기</a><a href="${A('fleets-cargo/')}">화물 항공기</a></div></div></div></div><div class="nav-item"><a href="${A('flight-information/')}">운항 정보</a><div class="mega-menu"><div class="mega-inner shell-wide"><div class="mega-title"><span>STELLARIS AIRLINES</span><strong>운항 정보</strong></div><div class="mega-links"><a href="${A('flight-information/')}">운항 정보</a><a href="${A('destinations/')}">노선 안내</a><a href="${A('flight-information/#domestic')}">국내선 네트워크</a><a href="${A('flight-information/#international')}">국제선 네트워크</a></div></div></div></div><div class="nav-item"><a href="${A('travel-info/')}">여행 준비</a><div class="mega-menu"><div class="mega-inner shell-wide"><div class="mega-title"><span>STELLARIS AIRLINES</span><strong>여행 준비</strong></div><div class="mega-links"><a href="${A('travel-info/')}">여행 준비</a><a href="${A('travel-info/#checkin')}">온라인 체크인</a><a href="${A('travel-info/#baggage')}">수하물</a><a href="${A('travel-info/#safety')}">탑승 전 안전수칙</a><a href="${A('wifi/')}">기내 Wi-Fi</a><a href="${A('inflight-entertainment/')}">엔터테인먼트</a></div></div></div></div><div class="nav-item"><a href="${A('support/')}">지원 센터</a><div class="mega-menu"><div class="mega-inner shell-wide"><div class="mega-title"><span>STELLARIS AIRLINES</span><strong>지원 센터</strong></div><div class="mega-links"><a href="${A('support/')}">고객 지원 & Q&A</a><a href="${A('find-your-reservations/')}">예약 조회</a><a href="${A('support/#booking')}">예약/항공권</a><a href="${A('support/#baggage')}">수하물 문의</a></div></div></div></div><div class="nav-item"><a href="${A('membership/')}">Star Miles</a></div></nav><div class="header-tools">${languageControl()}<a class="book-link" href="${A('book-your-journey/')}">항공권 예약하기</a><a href="${A('find-your-reservations/')}">예약 조회</a><span class="tool-divider"></span><a href="${A('login/')}">로그인</a><a class="signup-link" href="${A('signup/')}">회원가입</a><button class="mobile-menu-button" id="mobileMenuButton" type="button" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button></div></div><div class="mobile-nav" id="mobileNav" hidden><a href="${A('book-your-journey/')}">항공권 예약하기</a><a href="${A('find-your-reservations/')}">예약 조회</a><a href="${A('about-us/')}">항공사 정보</a><a href="${A('flight-information/')}">운항 정보</a><a href="${A('destinations/')}">노선 안내</a><a href="${A('travel-info/')}">여행 준비</a><a href="${A('our-fleets/')}">보유 항공기</a><a href="${A('membership/')}">Star Miles</a><a href="${A('support/')}">지원 센터</a><a href="${A('login/')}">로그인</a><a href="${A('signup/')}">회원가입</a></div></header>`;}
+const languageControl=()=>`<div class="language-switcher" data-language-switcher data-i18n-skip>
+  <button class="language-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language">
+    <span class="language-label">LANG</span><span class="language-current">한국어</span><span class="language-chevron" aria-hidden="true"></span>
+  </button>
+  <div class="language-menu" role="listbox" aria-label="Language" hidden>
+    ${languageCodes.map(code=>`<button class="language-option" type="button" role="option" data-lang="${code}" aria-selected="false"><span>${languageNames[code]}</span></button>`).join('')}
+  </div>
+</div>`;
 
-if(!headerHost){
-  const tools=document.querySelector('.site-header .header-tools');
-  if(tools){
-    if(!document.getElementById('languageSelect')) tools.insertAdjacentHTML('afterbegin',languageControl());
-    if(!tools.querySelector('.signup-link')){
-      const login=[...tools.querySelectorAll('a')].find(a=>a.getAttribute('href')?.includes('login'));
-      if(login) login.insertAdjacentHTML('afterend',`<a class="signup-link" href="${A('signup/')}">회원가입</a>`);
-    }
+const headerHTML=()=>`<header class="site-header"><div class="header-inner shell-wide">
+  <a class="brand" href="${A('')}" aria-label="Stellaris Airlines 홈"><img class="brand-symbol-image" src="${A('assets/stellaris-symbol.png')}" alt=""><img class="brand-wordmark-image" src="${A('assets/stellaris-wordmark.png')}" alt="STELLARIS AIRLINES"></a>
+  <nav class="main-nav">
+    <div class="nav-item"><a href="${A('about-us/')}">항공사 정보</a><div class="mega-menu"><div class="mega-inner shell-wide"><div class="mega-title"><span>STELLARIS AIRLINES</span><strong>항공사 정보</strong></div><div class="mega-links"><a href="${A('about-us/')}">항공사 소개</a><a href="${A('about-us/#promises')}">5가지 약속</a><a href="${A('group/')}">STELLARIS GROUP</a><a href="${A('our-fleets/')}">보유 항공기</a><a href="${A('fleets-cargo/')}">화물 항공기</a></div></div></div></div>
+    <div class="nav-item"><a href="${A('flight-information/')}">운항 정보</a><div class="mega-menu"><div class="mega-inner shell-wide"><div class="mega-title"><span>STELLARIS AIRLINES</span><strong>운항 정보</strong></div><div class="mega-links"><a href="${A('flight-information/')}">운항 정보</a><a href="${A('destinations/')}">노선 안내</a><a href="${A('flight-information/#domestic')}">국내선 네트워크</a><a href="${A('flight-information/#international')}">국제선 네트워크</a></div></div></div></div>
+    <div class="nav-item"><a href="${A('travel-info/')}">여행 준비</a><div class="mega-menu"><div class="mega-inner shell-wide"><div class="mega-title"><span>STELLARIS AIRLINES</span><strong>여행 준비</strong></div><div class="mega-links"><a href="${A('travel-info/')}">여행 준비</a><a href="${A('travel-info/#checkin')}">온라인 체크인</a><a href="${A('travel-info/#baggage')}">수하물</a><a href="${A('travel-info/#safety')}">탑승 전 안전수칙</a><a href="${A('wifi/')}">기내 Wi-Fi</a><a href="${A('inflight-entertainment/')}">엔터테인먼트</a></div></div></div></div>
+    <div class="nav-item"><a href="${A('support/')}">지원 센터</a><div class="mega-menu"><div class="mega-inner shell-wide"><div class="mega-title"><span>STELLARIS AIRLINES</span><strong>지원 센터</strong></div><div class="mega-links"><a href="${A('support/')}">고객 지원 & Q&A</a><a href="${A('find-your-reservations/')}">예약 조회</a><a href="${A('support/#booking')}">예약/항공권</a><a href="${A('support/#baggage')}">수하물 문의</a></div></div></div></div>
+    <div class="nav-item"><a href="${A('membership/')}">Star Miles</a></div>
+  </nav>
+  <div class="header-tools">${languageControl()}<a class="book-link" href="${A('book-your-journey/')}">항공권 예약하기</a><a href="${A('find-your-reservations/')}">예약 조회</a><span class="tool-divider"></span><a href="${A('login/')}">로그인</a><a class="signup-link" href="${A('signup/')}">회원가입</a><button class="mobile-menu-button" id="mobileMenuButton" type="button" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button></div>
+</div><div class="mobile-nav" id="mobileNav" hidden><a href="${A('book-your-journey/')}">항공권 예약하기</a><a href="${A('find-your-reservations/')}">예약 조회</a><a href="${A('about-us/')}">항공사 정보</a><a href="${A('flight-information/')}">운항 정보</a><a href="${A('destinations/')}">노선 안내</a><a href="${A('travel-info/')}">여행 준비</a><a href="${A('our-fleets/')}">보유 항공기</a><a href="${A('membership/')}">Star Miles</a><a href="${A('support/')}">지원 센터</a><a href="${A('login/')}">로그인</a><a href="${A('signup/')}">회원가입</a></div></header>`;
+
+const footerHTML=()=>`<footer class="site-footer"><div class="shell footer-main"><a class="brand footer-brand" href="${A('')}"><img class="brand-symbol-image" src="${A('assets/stellaris-symbol.png')}" alt=""><img class="brand-wordmark-image" src="${A('assets/stellaris-wordmark.png')}" alt="STELLARIS AIRLINES"></a><div class="footer-columns"><div><strong>항공사</strong><a href="${A('about-us/')}">항공사 소개</a><a href="${A('group/')}">STELLARIS GROUP</a><a href="${A('our-fleets/')}">항공기</a></div><div><strong>여행</strong><a href="${A('book-your-journey/')}">항공권 예약하기</a><a href="${A('find-your-reservations/')}">예약 조회</a><a href="${A('destinations/')}">노선 안내</a></div><div><strong>서비스</strong><a href="${A('travel-info/')}">여행 준비</a><a href="${A('wifi/')}">기내 Wi-Fi</a><a href="${A('inflight-entertainment/')}">기내 엔터테인먼트</a></div><div><strong>지원</strong><a href="${A('support/')}">지원 센터</a><a href="${A('membership/')}">Star Miles</a></div></div></div><div class="shell footer-bottom"><span>© 2026 STELLARIS AIRLINES</span><div><a href="#">이용약관</a><a href="#">개인정보처리방침</a></div></div></footer>`;
+
+function installCommonChrome(){
+  const host=document.getElementById('siteHeader');
+  if(host){host.innerHTML=headerHTML();}
+  else{
+    const current=document.querySelector('header.site-header');
+    if(current)current.outerHTML=headerHTML();
+    else document.body.insertAdjacentHTML('afterbegin',headerHTML());
   }
-  const mobile=document.querySelector('.mobile-nav');
-  if(mobile&&!mobile.querySelector('a[href*="signup"]')) mobile.insertAdjacentHTML('beforeend',`<a href="${A('signup/')}">회원가입</a>`);
+  const footerHost=document.getElementById('siteFooter');
+  if(footerHost){footerHost.innerHTML=footerHTML();}
+  else{
+    const currentFooter=document.querySelector('footer.site-footer');
+    if(currentFooter)currentFooter.outerHTML=footerHTML();
+    else document.body.insertAdjacentHTML('beforeend',footerHTML());
+  }
+}
+installCommonChrome();
+
+document.querySelectorAll('.book-link').forEach(el=>el.textContent='항공권 예약하기');
+
+const originalText=new WeakMap();
+const originalAttrs=new WeakMap();
+let currentLanguage='ko';
+let dictionaries={};
+let i18nReady=false;
+
+function normaliseDict(data){
+  const result={};
+  languageCodes.forEach(code=>result[code]={});
+  (data?.rows||[]).forEach(row=>{
+    if(!Array.isArray(row)||!row[0])return;
+    const source=row[0];
+    result['en-US'][source]=row[1]??source;
+    result['en-GB'][source]=row[2]??row[1]??source;
+    result['zh-CN'][source]=row[3]??source;
+    result.ja[source]=row[4]??source;
+    result.es[source]=row[5]??source;
+    result.fr[source]=row[6]??source;
+  });
+  return result;
 }
 
-if(footerHost){footerHost.innerHTML=`<footer class="site-footer"><div class="shell footer-main"><a class="brand footer-brand" href="${A('')}"><img class="brand-symbol-image" src="${A('assets/stellaris-symbol.png')}" alt=""><img class="brand-wordmark-image" src="${A('assets/stellaris-wordmark.png')}" alt="STELLARIS AIRLINES"></a><div class="footer-columns"><div><strong>항공사</strong><a href="${A('about-us/')}">항공사 소개</a><a href="${A('group/')}">STELLARIS GROUP</a><a href="${A('our-fleets/')}">항공기</a></div><div><strong>여행</strong><a href="${A('book-your-journey/')}">항공권 예약하기</a><a href="${A('find-your-reservations/')}">예약 조회</a><a href="${A('destinations/')}">노선 안내</a></div><div><strong>서비스</strong><a href="${A('travel-info/')}">여행 준비</a><a href="${A('wifi/')}">기내 Wi-Fi</a><a href="${A('inflight-entertainment/')}">기내 엔터테인먼트</a></div><div><strong>지원</strong><a href="${A('support/')}">지원 센터</a><a href="${A('membership/')}">Star Miles</a></div></div></div><div class="shell footer-bottom"><span>© 2026 STELLARIS AIRLINES</span><div><a href="#">이용약관</a><a href="#">개인정보처리방침</a></div></div></footer>`;}
-
-const baseEN={
-'항공사 정보':'Airline','항공사 소개':'About us','5가지 약속':'Our five promises','보유 항공기':'Our fleets','화물 항공기':'Cargo fleet','운항 정보':'Flight information','노선 안내':'Destinations','국내선 네트워크':'Domestic network','국제선 네트워크':'International network','여행 준비':'Travel information','온라인 체크인':'Online check-in','수하물':'Baggage','탑승 전 안전수칙':'Before you fly','기내 Wi-Fi':'In-flight Wi-Fi','엔터테인먼트':'Entertainment','지원 센터':'Support Center','고객 지원 & Q&A':'Customer support & FAQ','예약 조회':'Manage booking','예약/항공권':'Bookings & tickets','수하물 문의':'Baggage support','항공권 예약하기':'Book a flight','로그인':'Log in','회원가입':'Sign up','항공사':'Airline','여행':'Travel','서비스':'Services','지원':'Support','항공기':'Aircraft','기내 엔터테인먼트':'In-flight entertainment','이용약관':'Terms of use','개인정보처리방침':'Privacy policy','홈':'Home','이름':'Name','이메일':'Email','비밀번호':'Password','계정 만들기':'Create account','비회원 예약 조회':'Guest booking lookup','지역과 도시를 더 가깝게.':'Bringing regions and cities closer.','리저널 제트와 터보프롭을 중심으로 효율적인 노선망을 구축합니다.':'We build an efficient network centered on regional jets and turboprops.','주요 도시와 지방 도시, 지역 공항을 연결하며 그룹 전체 네트워크에서 지역 연결성을 담당합니다.':'We connect major cities, regional cities and local airports across the group network.','그룹 계열사 보기 →':'View group airlines →','여객 네트워크와 연계해 국내외 주요 도시를 연결하며, 화물의 규모와 노선 거리에 맞는 대형 화물기를 운영합니다.':'Connected with our passenger network, Stellaris Cargo links major cities with freighters matched to cargo volume and route distance.','소규모 지역 화물부터 대형 국제 화물까지 노선 거리와 적재 규모에 맞춰 기종을 배치합니다.':'Aircraft are assigned according to route distance and payload, from regional freight to large international cargo.','대한민국에서 시작해 세계를 연결합니다. 합리적인 운임과 편안한 서비스, 그리고 승객이 직접 선택하는 여행 경험을 제공합니다.':'From Korea, we connect the world with sensible fares, comfortable service and a journey shaped by your choices.','대한민국 어디에서든 세계로':'From anywhere in Korea to the world','필요한 정보를 바로 확인하세요.':'Everything you need, right when you need it.','스텔라리스의 5가지 약속':'The five Stellaris promises','여정을 시작하세요':'Start your journey','예약번호 또는 로그인':'Booking reference or account','국내선·국제선 안내':'Domestic & international flights','체크인·수하물·안전':'Check-in, baggage & safety','계정으로 예약과 Star Miles를 한곳에서 관리하세요.':'Manage bookings and Star Miles in one place.','아직 계정이 없으신가요?':'New to Stellaris?','이미 계정이 있으신가요?':'Already have an account?'
-};
-const dictionaries={
-'en-US':{...baseEN},
-'en-GB':{...baseEN,'지원 센터':'Help Centre','고객 지원 & Q&A':'Customer help & FAQ'},
-'zh-CN':{'항공사 정보':'航空公司信息','항공사 소개':'公司介绍','5가지 약속':'五项承诺','보유 항공기':'机队','화물 항공기':'货运机队','운항 정보':'航班信息','노선 안내':'航线指南','국내선 네트워크':'国内航线网络','국제선 네트워크':'国际航线网络','여행 준비':'旅行准备','온라인 체크인':'在线值机','수하물':'行李','탑승 전 안전수칙':'登机前安全须知','기내 Wi-Fi':'机上 Wi-Fi','엔터테인먼트':'机上娱乐','지원 센터':'客户支持','고객 지원 & Q&A':'客户支持与问答','예약 조회':'查询预订','예약/항공권':'预订与机票','수하물 문의':'行李咨询','항공권 예약하기':'预订机票','로그인':'登录','회원가입':'注册','항공사':'航空公司','여행':'旅行','서비스':'服务','지원':'支持','항공기':'飞机','기내 엔터테인먼트':'机上娱乐','이용약관':'使用条款','개인정보처리방침':'隐私政策','홈':'首页','이름':'姓名','이메일':'电子邮箱','비밀번호':'密码','계정 만들기':'创建账户','비회원 예약 조회':'非会员预订查询','지역과 도시를 더 가깝게.':'让地区与城市更近。','항공사 소개 자세히 보기 →':'查看航空公司介绍 →','여정을 시작하세요':'开始旅程','예약번호 또는 로그인':'预订编号或登录','국내선·국제선 안내':'国内与国际航班','체크인·수하물·안전':'值机·行李·安全'},
-'ja':{'항공사 정보':'航空会社情報','항공사 소개':'会社紹介','5가지 약속':'5つの約束','보유 항공기':'保有機材','화물 항공기':'貨物機','운항 정보':'運航情報','노선 안내':'路線案内','국내선 네트워크':'国内線ネットワーク','국제선 네트워크':'国際線ネットワーク','여행 준비':'ご旅行の準備','온라인 체크인':'オンラインチェックイン','수하물':'手荷物','탑승 전 안전수칙':'搭乗前の安全案内','기내 Wi-Fi':'機内Wi-Fi','엔터테인먼트':'エンターテインメント','지원 센터':'サポートセンター','고객 지원 & Q&A':'カスタマーサポート・FAQ','예약 조회':'予約確認','예약/항공권':'予約・航空券','수하물 문의':'手荷物のお問い合わせ','항공권 예약하기':'航空券を予約','로그인':'ログイン','회원가입':'会員登録','항공사':'航空会社','여행':'旅行','서비스':'サービス','지원':'サポート','항공기':'航空機','기내 엔터테인먼트':'機内エンターテインメント','이용약관':'利用規約','개인정보처리방침':'プライバシーポリシー','홈':'ホーム','이름':'氏名','이메일':'メール','비밀번호':'パスワード','계정 만들기':'アカウント作成','비회원 예약 조회':'ゲスト予約照会','지역과 도시를 더 가깝게.':'地域と都市を、もっと近く。','여정을 시작하세요':'旅を始める','예약번호 또는 로그인':'予約番号またはログイン','국내선·국제선 안내':'国内線・国際線','체크인·수하물·안전':'チェックイン・手荷物・安全'},
-'es':{'항공사 정보':'La aerolínea','항공사 소개':'Quiénes somos','5가지 약속':'Cinco compromisos','보유 항공기':'Nuestra flota','화물 항공기':'Flota de carga','운항 정보':'Información de vuelos','노선 안내':'Destinos','국내선 네트워크':'Red nacional','국제선 네트워크':'Red internacional','여행 준비':'Prepara tu viaje','온라인 체크인':'Check-in online','수하물':'Equipaje','탑승 전 안전수칙':'Antes de volar','기내 Wi-Fi':'Wi-Fi a bordo','엔터테인먼트':'Entretenimiento','지원 센터':'Centro de ayuda','고객 지원 & Q&A':'Atención al cliente y FAQ','예약 조회':'Gestionar reserva','예약/항공권':'Reservas y billetes','수하물 문의':'Ayuda con equipaje','항공권 예약하기':'Reservar vuelo','로그인':'Iniciar sesión','회원가입':'Registrarse','항공사':'Aerolínea','여행':'Viaje','서비스':'Servicios','지원':'Ayuda','항공기':'Aeronaves','기내 엔터테인먼트':'Entretenimiento a bordo','이용약관':'Términos de uso','개인정보처리방침':'Política de privacidad','홈':'Inicio','이름':'Nombre','이메일':'Correo electrónico','비밀번호':'Contraseña','계정 만들기':'Crear cuenta','비회원 예약 조회':'Consultar reserva sin cuenta','지역과 도시를 더 가깝게.':'Acercamos regiones y ciudades.','여정을 시작하세요':'Empieza tu viaje','예약번호 또는 로그인':'Localizador o cuenta','국내선·국제선 안내':'Vuelos nacionales e internacionales','체크인·수하물·안전':'Check-in, equipaje y seguridad'},
-'fr':{'항공사 정보':'La compagnie','항공사 소개':'À propos','5가지 약속':'Nos cinq engagements','보유 항공기':'Notre flotte','화물 항공기':'Flotte cargo','운항 정보':'Informations de vol','노선 안내':'Destinations','국내선 네트워크':'Réseau domestique','국제선 네트워크':'Réseau international','여행 준비':'Préparer votre voyage','온라인 체크인':'Enregistrement en ligne','수하물':'Bagages','탑승 전 안전수칙':'Avant le vol','기내 Wi-Fi':'Wi-Fi à bord','엔터테인먼트':'Divertissement','지원 센터':'Centre d’aide','고객 지원 & Q&A':'Service client et FAQ','예약 조회':'Gérer la réservation','예약/항공권':'Réservations et billets','수하물 문의':'Aide bagages','항공권 예약하기':'Réserver un vol','로그인':'Se connecter','회원가입':'Créer un compte','항공사':'Compagnie','여행':'Voyage','서비스':'Services','지원':'Assistance','항공기':'Avions','기내 엔터테인먼트':'Divertissement à bord','이용약관':'Conditions d’utilisation','개인정보처리방침':'Politique de confidentialité','홈':'Accueil','이름':'Nom','이메일':'E-mail','비밀번호':'Mot de passe','계정 만들기':'Créer un compte','비회원 예약 조회':'Consulter sans compte','지역과 도시를 더 가깝게.':'Rapprocher les régions et les villes.','여정을 시작하세요':'Commencez votre voyage','예약번호 또는 로그인':'Référence ou compte','국내선·국제선 안내':'Vols nationaux et internationaux','체크인·수하물·안전':'Enregistrement, bagages et sécurité'}
-};
-const originalText=new WeakMap();
-const originalPlaceholder=new WeakMap();
-function translateDOM(lang){
-  document.documentElement.lang=lang==='ko'?'ko':lang;
+function translateText(raw,lang){
+  if(lang==='ko')return raw;
   const dict=dictionaries[lang]||{};
-  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(node){const p=node.parentElement;if(!p||['SCRIPT','STYLE','OPTION'].includes(p.tagName))return NodeFilter.FILTER_REJECT;return node.nodeValue.trim()?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;}});
-  let node;while(node=walker.nextNode()){
+  if(Object.prototype.hasOwnProperty.call(dict,raw))return dict[raw];
+  let out=raw;
+  const matches=Object.keys(dict).filter(key=>key&&out.includes(key)).sort((a,b)=>b.length-a.length);
+  for(const key of matches)out=out.split(key).join(dict[key]);
+  return out;
+}
+
+function rememberAttrs(el){
+  if(originalAttrs.has(el))return originalAttrs.get(el);
+  const saved={};
+  ['placeholder','aria-label','title','value'].forEach(attr=>{
+    if(el.hasAttribute(attr))saved[attr]=el.getAttribute(attr);
+  });
+  originalAttrs.set(el,saved);
+  return saved;
+}
+
+function translateDOM(lang){
+  if(!i18nReady)return;
+  currentLanguage=lang;
+  document.documentElement.lang=lang==='ko'?'ko':lang;
+  document.title='Stellaris Airlines';
+  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(node){
+    const p=node.parentElement;
+    if(!p||['SCRIPT','STYLE'].includes(p.tagName)||p.closest('[data-i18n-skip]')||p.closest('[data-i18n-dynamic]'))return NodeFilter.FILTER_REJECT;
+    return node.nodeValue.trim()?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;
+  }});
+  let node;
+  while((node=walker.nextNode())){
     if(!originalText.has(node))originalText.set(node,node.nodeValue);
-    const original=originalText.get(node),trimmed=original.trim();
-    const translated=lang==='ko'?trimmed:(dict[trimmed]||trimmed);
+    const original=originalText.get(node);
+    const trimmed=original.trim();
+    const translated=translateText(trimmed,lang);
     node.nodeValue=original.replace(trimmed,translated);
   }
-  document.querySelectorAll('input[placeholder]').forEach(el=>{
-    if(!originalPlaceholder.has(el))originalPlaceholder.set(el,el.getAttribute('placeholder'));
-    const raw=originalPlaceholder.get(el);el.setAttribute('placeholder',lang==='ko'?raw:(dict[raw]||raw));
+  document.querySelectorAll('[data-i18n-dynamic]').forEach(el=>{el.textContent=translateText(el.dataset.i18nDynamic||'',lang);});
+  document.querySelectorAll('[placeholder],[aria-label],[title],input[value]').forEach(el=>{
+    if(el.closest('[data-i18n-skip]'))return;
+    const saved=rememberAttrs(el);
+    Object.entries(saved).forEach(([attr,value])=>{
+      if(attr==='value'&&el.type&&['date','hidden','submit','button'].includes(el.type))return;
+      const translated=translateText(value,lang);
+      el.setAttribute(attr,translated);
+      if(attr==='value'&&'value' in el)el.value=translated;
+    });
   });
-  document.querySelectorAll('#languageSelect').forEach(sel=>sel.value=lang);
+  updateLanguageUI(lang);
 }
-let savedLanguage='ko';try{savedLanguage=localStorage.getItem('stellaris-language')||'ko';}catch(e){}
-if(!languages.some(([v])=>v===savedLanguage))savedLanguage='ko';
-translateDOM(savedLanguage);
-document.querySelectorAll('#languageSelect').forEach(sel=>sel.addEventListener('change',e=>{const lang=e.target.value;try{localStorage.setItem('stellaris-language',lang);}catch(err){}translateDOM(lang);}));
 
-const mobileButton=document.getElementById('mobileMenuButton'),mobileNav=document.getElementById('mobileNav');if(mobileButton&&mobileNav){mobileButton.addEventListener('click',()=>{const open=mobileButton.getAttribute('aria-expanded')==='true';mobileButton.setAttribute('aria-expanded',String(!open));mobileNav.hidden=open;});}
-document.querySelectorAll('.demo-form').forEach(form=>form.addEventListener('submit',e=>{e.preventDefault();let p=form.querySelector('.demo-message');if(!p){p=document.createElement('p');p.className='demo-message';form.appendChild(p)}p.textContent=savedLanguage==='ko'?'현재는 웹사이트 UI 데모입니다. 실제 예약·회원 시스템은 추후 연동됩니다.':'This is currently a website UI demo. Live booking and account systems will be connected later.';}));
-const reservationTabs=document.querySelectorAll('[data-reservation-tab]');reservationTabs.forEach(btn=>btn.addEventListener('click',()=>{reservationTabs.forEach(x=>x.classList.toggle('active',x===btn));document.querySelectorAll('[data-reservation-panel]').forEach(p=>p.hidden=p.dataset.reservationPanel!==btn.dataset.reservationTab);}));
-const bookingTabs=document.querySelectorAll('[data-booking-tab]');bookingTabs.forEach(btn=>btn.addEventListener('click',()=>{bookingTabs.forEach(x=>x.classList.toggle('active',x===btn));const rf=document.getElementById('returnField');if(rf)rf.hidden=btn.dataset.bookingTab==='oneway';}));
-const swap=document.getElementById('swapButton'),from=document.getElementById('fromInput'),to=document.getElementById('toInput');if(swap&&from&&to){swap.addEventListener('click',()=>{[from.value,to.value]=[to.value,from.value];});}
+function updateLanguageUI(lang){
+  document.querySelectorAll('[data-language-switcher]').forEach(switcher=>{
+    const current=switcher.querySelector('.language-current');
+    if(current)current.textContent=languageNames[lang]||languageNames.ko;
+    switcher.querySelectorAll('.language-option').forEach(option=>{
+      const selected=option.dataset.lang===lang;
+      option.classList.toggle('is-selected',selected);
+      option.setAttribute('aria-selected',String(selected));
+    });
+  });
+}
+
+function setLanguage(lang,persist=true){
+  if(!languageCodes.includes(lang))lang='ko';
+  if(persist){try{localStorage.setItem('stellaris-language',lang);}catch(e){}}
+  translateDOM(lang);
+}
+
+function bindLanguageControls(){
+  document.querySelectorAll('[data-language-switcher]').forEach(switcher=>{
+    const trigger=switcher.querySelector('.language-trigger');
+    const menu=switcher.querySelector('.language-menu');
+    if(!trigger||!menu)return;
+    const close=()=>{menu.hidden=true;trigger.setAttribute('aria-expanded','false');switcher.classList.remove('is-open');};
+    const open=()=>{menu.hidden=false;trigger.setAttribute('aria-expanded','true');switcher.classList.add('is-open');};
+    trigger.addEventListener('click',e=>{e.stopPropagation();menu.hidden?open():close();});
+    switcher.querySelectorAll('.language-option').forEach(option=>option.addEventListener('click',()=>{setLanguage(option.dataset.lang,true);close();}));
+    document.addEventListener('click',e=>{if(!switcher.contains(e.target))close();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+  });
+}
+
+function bindSiteInteractions(){
+  const mobileButton=document.getElementById('mobileMenuButton'),mobileNav=document.getElementById('mobileNav');
+  if(mobileButton&&mobileNav){mobileButton.addEventListener('click',()=>{const open=mobileButton.getAttribute('aria-expanded')==='true';mobileButton.setAttribute('aria-expanded',String(!open));mobileNav.hidden=open;});}
+  document.querySelectorAll('.demo-form').forEach(form=>form.addEventListener('submit',e=>{e.preventDefault();let p=form.querySelector('.demo-message');if(!p){p=document.createElement('p');p.className='demo-message';form.appendChild(p)}const source='현재는 웹사이트 UI 데모입니다. 실제 예약·회원 시스템은 추후 연동됩니다.';p.dataset.i18nDynamic=source;p.textContent=translateText(source,currentLanguage);}));
+  const reservationTabs=document.querySelectorAll('[data-reservation-tab]');reservationTabs.forEach(btn=>btn.addEventListener('click',()=>{reservationTabs.forEach(x=>x.classList.toggle('active',x===btn));document.querySelectorAll('[data-reservation-panel]').forEach(p=>p.hidden=p.dataset.reservationPanel!==btn.dataset.reservationTab);}));
+  const bookingTabs=document.querySelectorAll('[data-booking-tab]');bookingTabs.forEach(btn=>btn.addEventListener('click',()=>{bookingTabs.forEach(x=>x.classList.toggle('active',x===btn));const rf=document.getElementById('returnField');if(rf)rf.hidden=btn.dataset.bookingTab==='oneway';}));
+  const swap=document.getElementById('swapButton'),from=document.getElementById('fromInput'),to=document.getElementById('toInput');if(swap&&from&&to){swap.addEventListener('click',()=>{[from.value,to.value]=[to.value,from.value];});}
+}
+
+bindLanguageControls();
+bindSiteInteractions();
+
+let savedLanguage='ko';
+try{savedLanguage=localStorage.getItem('stellaris-language')||'ko';}catch(e){}
+if(!languageCodes.includes(savedLanguage))savedLanguage='ko';
+
+const dataScript=document.createElement('script');
+dataScript.src=A('translations.js');
+dataScript.defer=true;
+dataScript.onload=()=>{
+  dictionaries=normaliseDict(window.STELLARIS_I18N||{});
+  i18nReady=true;
+  setLanguage(savedLanguage,false);
+};
+dataScript.onerror=()=>{i18nReady=true;dictionaries=normaliseDict({rows:[]});setLanguage('ko',false);};
+document.head.appendChild(dataScript);
 })();
