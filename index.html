@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#3f4b2f" />
+  <meta name="description" content="Stellaris Air — Quietly above. 더 편안한 여정을 위한 항공 경험." />
+  <title>Stellaris Air</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 이동</a>
+
+  <header class="site-header" id="top">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Stellaris Air 홈">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img">
+            <path d="M8 29.6c8.2-.5 14.7-3.1 20.2-8.1L40 10.7c.8-.7 2-.1 1.9 1l-1.1 8.8a5 5 0 0 1-2.5 3.7L24.8 32l-5 8.2-4.3.1 1.6-6.4-9.4-2.1c-1.3-.3-1.1-2 .3-2.2Z" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <strong>STELLARIS</strong>
+          <small>AIR</small>
+        </span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="주요 메뉴">
+        <a href="#booking">예약</a>
+        <a href="#destinations">여행지</a>
+        <a href="#experience">서비스</a>
+        <a href="#fleet">항공기</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="text-button" type="button" id="langButton">KR <span aria-hidden="true">⌄</span></button>
+        <button class="outline-button" type="button">로그인</button>
+        <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="메뉴 열기">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="mobile-menu" id="mobileMenu" aria-label="모바일 메뉴" hidden>
+      <a href="#booking">예약</a>
+      <a href="#destinations">여행지</a>
+      <a href="#experience">서비스</a>
+      <a href="#fleet">항공기</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-sky" aria-hidden="true">
+        <div class="orb orb-one"></div>
+        <div class="orb orb-two"></div>
+        <svg class="hero-plane" viewBox="0 0 900 460" role="presentation">
+          <defs>
+            <linearGradient id="bodyGradient" x1="0" x2="1">
+              <stop offset="0" stop-color="#f8f8f2"/>
+              <stop offset="0.7" stop-color="#e7e9df"/>
+              <stop offset="1" stop-color="#cdd1c2"/>
+            </linearGradient>
+          </defs>
+          <g transform="translate(120 90) rotate(-8 360 160)">
+            <path d="M52 189c70-24 150-41 251-56l176-77c15-7 30-6 48-2l23 5-126 78c71 0 132 4 192 11 35 4 70 14 99 27 11 5 13 19 3 25-24 14-68 20-127 20H405l-92 103h-52l43-104-156-13-54 49H52l29-63-29-3Z" fill="url(#bodyGradient)" stroke="#a8ad9b" stroke-width="3"/>
+            <path d="M424 137 550 59l24 7-90 73" fill="#4c5836"/>
+            <path d="m149 206-54 49h40l75-43" fill="#4c5836" opacity=".92"/>
+            <path d="M317 218h88l-92 105h-52Z" fill="#73805b"/>
+            <path d="M151 172c87-16 182-27 275-31" fill="none" stroke="#778264" stroke-width="4" opacity=".8"/>
+            <g fill="#7d856e">
+              <circle cx="458" cy="161" r="4"/><circle cx="477" cy="161" r="4"/><circle cx="496" cy="161" r="4"/><circle cx="515" cy="162" r="4"/><circle cx="534" cy="163" r="4"/><circle cx="553" cy="164" r="4"/><circle cx="572" cy="165" r="4"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <div class="hero-content shell">
+        <p class="eyebrow">STELLARIS AIR</p>
+        <h1 id="hero-title">Quietly above.</h1>
+        <p class="hero-copy">소란은 낮추고, 여행의 밀도는 높였습니다.<br>도시와 도시 사이를 더 단정하게 연결합니다.</p>
+        <a class="hero-link" href="#booking">여정 시작하기 <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="booking-wrap shell" id="booking" aria-label="항공권 예약">
+      <div class="booking-card">
+        <div class="booking-topline">
+          <div class="trip-tabs" role="tablist" aria-label="여정 유형">
+            <button class="trip-tab active" type="button" data-trip="round" role="tab" aria-selected="true">왕복</button>
+            <button class="trip-tab" type="button" data-trip="oneway" role="tab" aria-selected="false">편도</button>
+          </div>
+          <button class="subtle-link" type="button">예약 조회</button>
+        </div>
+
+        <form class="booking-form" id="bookingForm">
+          <label class="field route-field">
+            <span>출발지</span>
+            <input id="fromInput" value="서울 / 인천" aria-label="출발지" />
+            <small>ICN · 인천국제공항</small>
+          </label>
+
+          <button class="swap-button" id="swapButton" type="button" aria-label="출발지와 도착지 바꾸기">
+            <span aria-hidden="true">⇄</span>
+          </button>
+
+          <label class="field route-field">
+            <span>도착지</span>
+            <input id="toInput" value="도쿄 / 나리타" aria-label="도착지" />
+            <small>NRT · 나리타국제공항</small>
+          </label>
+
+          <label class="field">
+            <span>출발</span>
+            <input id="departDate" type="date" aria-label="출발일" />
+          </label>
+
+          <label class="field return-field" id="returnField">
+            <span>도착</span>
+            <input id="returnDate" type="date" aria-label="귀국일" />
+          </label>
+
+          <button class="passenger-field" type="button">
+            <span>탑승객</span>
+            <strong>성인 1</strong>
+            <small>일반석</small>
+          </button>
+
+          <button class="search-button" type="submit">항공권 검색</button>
+        </form>
+        <p class="form-message" id="formMessage" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="section shell" id="destinations">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow dark">DISCOVER</p>
+          <h2>가볍게 떠나기 좋은 도시</h2>
+        </div>
+        <a href="#" class="section-link">모든 노선 보기 <span aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="destination-grid">
+        <article class="destination-card destination-tokyo">
+          <div class="destination-visual">
+            <span class="sun-disc"></span>
+            <span class="city-line line-a"></span>
+            <span class="city-line line-b"></span>
+          </div>
+          <div class="destination-copy">
+            <div>
+              <p>JAPAN</p>
+              <h3>도쿄</h3>
+            </div>
+            <span>편도 89,000원부터</span>
+          </div>
+        </article>
+
+        <article class="destination-card destination-jeju">
+          <div class="destination-visual">
+            <span class="island-shape"></span>
+            <span class="sea-glow"></span>
+          </div>
+          <div class="destination-copy">
+            <div>
+              <p>KOREA</p>
+              <h3>제주</h3>
+            </div>
+            <span>편도 39,000원부터</span>
+          </div>
+        </article>
+
+        <article class="destination-card destination-bangkok">
+          <div class="destination-visual">
+            <span class="temple temple-a"></span>
+            <span class="temple temple-b"></span>
+          </div>
+          <div class="destination-copy">
+            <div>
+              <p>THAILAND</p>
+              <h3>방콕</h3>
+            </div>
+            <span>편도 189,000원부터</span>
+          </div>
+        </article>
+      </div>
+      <p class="price-note">* 표시 운임은 콘셉트 데모용 예시이며 실제 판매 운임이 아닙니다.</p>
+    </section>
+
+    <section class="experience-section" id="experience">
+      <div class="shell experience-grid">
+        <div class="experience-copy">
+          <p class="eyebrow">ON BOARD</p>
+          <h2>필요한 것은 충분히,<br>불필요한 것은 덜어내고.</h2>
+          <p>차분한 객실, 직관적인 서비스, 그리고 여행의 흐름을 방해하지 않는 디테일. Stellaris는 비행의 기본을 새롭게 정돈합니다.</p>
+          <a href="#" class="light-link">기내 서비스 알아보기 <span aria-hidden="true">→</span></a>
+        </div>
+
+        <div class="experience-cards">
+          <article class="mini-card">
+            <span class="mini-icon" aria-hidden="true">◌</span>
+            <h3>Calm Cabin</h3>
+            <p>눈이 편안한 조도와 절제된 올리브 톤으로 구성한 차분한 객실.</p>
+          </article>
+          <article class="mini-card">
+            <span class="mini-icon" aria-hidden="true">↗</span>
+            <h3>Simple Journey</h3>
+            <p>예약부터 탑승까지 필요한 정보만 빠르고 명확하게.</p>
+          </article>
+          <article class="mini-card">
+            <span class="mini-icon" aria-hidden="true">✦</span>
+            <h3>Warm Service</h3>
+            <p>과하지 않지만 필요한 순간에는 정확히 닿는 서비스.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell" id="fleet">
+      <div class="fleet-card">
+        <div class="fleet-copy">
+          <p class="eyebrow dark">OUR FLEET</p>
+          <h2>Airbus A321neo</h2>
+          <p>효율성과 편안함의 균형을 갖춘 차세대 단일통로 항공기. Stellaris의 중단거리 네트워크를 연결하는 주력 기종입니다.</p>
+          <div class="fleet-stats">
+            <div><strong>206</strong><span>Seats</span></div>
+            <div><strong>7,400 km</strong><span>Range</span></div>
+            <div><strong>-20%</strong><span>Fuel burn*</span></div>
+          </div>
+          <small>* 이전 세대 동급 기종 대비 제조사 기준 개념 수치.</small>
+        </div>
+        <div class="fleet-art" aria-hidden="true">
+          <svg viewBox="0 0 900 430">
+            <g transform="translate(70 85)">
+              <path d="M44 177c89-23 177-35 287-43l195-84c18-8 34-8 55-3l24 6-142 84c67 0 135 6 202 18 29 5 61 15 84 27 13 7 13 23 0 30-27 14-70 20-131 19l-180-4-96 105h-57l44-110-165-13-61 53H45l31-69-32-4Z" fill="#f6f6f0" stroke="#9aa187" stroke-width="4"/>
+              <path d="M463 137 604 53l29 8-101 80" fill="#4e5a39"/>
+              <path d="M331 212h107l-96 111h-57Z" fill="#768362"/>
+              <path d="M126 188c114-27 251-44 402-47" fill="none" stroke="#687452" stroke-width="5"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div class="shell newsletter-inner">
+        <div>
+          <p class="eyebrow dark">STAY IN THE LOOP</p>
+          <h2>새로운 노선과 소식을 먼저 만나보세요.</h2>
+        </div>
+        <form class="newsletter-form" id="newsletterForm">
+          <label class="sr-only" for="emailInput">이메일 주소</label>
+          <input id="emailInput" type="email" placeholder="email@example.com" required />
+          <button type="submit">구독하기</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div>
+        <a class="brand footer-brand" href="#top">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><path d="M8 29.6c8.2-.5 14.7-3.1 20.2-8.1L40 10.7c.8-.7 2-.1 1.9 1l-1.1 8.8a5 5 0 0 1-2.5 3.7L24.8 32l-5 8.2-4.3.1 1.6-6.4-9.4-2.1c-1.3-.3-1.1-2 .3-2.2Z" fill="currentColor"/></svg>
+          </span>
+          <span class="brand-copy"><strong>STELLARIS</strong><small>AIR</small></span>
+        </a>
+        <p class="footer-note">Stellaris Air concept website.<br>Designed for a calm, modern travel experience.</p>
+      </div>
+      <div>
+        <h3>예약</h3>
+        <a href="#booking">항공권 예약</a>
+        <a href="#">예약 조회</a>
+        <a href="#">체크인</a>
+      </div>
+      <div>
+        <h3>여행</h3>
+        <a href="#destinations">취항지</a>
+        <a href="#experience">기내 서비스</a>
+        <a href="#fleet">항공기</a>
+      </div>
+      <div>
+        <h3>고객지원</h3>
+        <a href="#">공지사항</a>
+        <a href="#">자주 묻는 질문</a>
+        <a href="#">문의하기</a>
+      </div>
+    </div>
+    <div class="shell footer-bottom">
+      <span>© 2026 Stellaris Air. All rights reserved.</span>
+      <div><a href="#">이용약관</a><a href="#">개인정보처리방침</a></div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
