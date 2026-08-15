@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#a89f52" />
+  <meta name="description" content="Stellaris Airlines Our Fleets" />
+  <title>Our Fleets | Stellaris Airlines</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body data-page="fleets">
+  <a class="skip-link" href="#main">본문으로 이동</a>
+
+  <header class="site-header" id="top">
+    <div class="header-inner">
+      <a class="brand" href="../" aria-label="Stellaris Airlines 홈">
+        <svg class="brand-symbol" viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M50 2 61 36 98 50 61 64 50 98 39 64 2 50 39 36Z" fill="currentColor"/>
+          <path d="M13 83c5 7 15 7 29-1 21-12 48-38 61-61-3 20-24 50-50 69-18 13-34 18-40 12-5-5-2-12 4-21-3 7-4 12-4 15 0 2 0 3 0 4Z" fill="currentColor"/>
+          <path d="m70 16 3 9 9 3-9 3-3 9-3-9-9-3 9-3Z" fill="currentColor"/>
+        </svg>
+        <span class="brand-wordmark">STELLARIS AIRLINES</span>
+      </a>
+
+      <div class="header-actions">
+        <a class="nav-reserve" href="../#top">홈</a>
+        <button class="lang-button" type="button" aria-label="언어 선택">KR</button>
+        <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="drawer" aria-label="메뉴 열기">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+  <aside class="drawer" id="drawer" aria-hidden="true" aria-label="전체 메뉴">
+    <div class="drawer-head">
+      <span>MENU</span>
+      <button class="drawer-close" id="drawerClose" type="button" aria-label="메뉴 닫기">×</button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="../"><span>01</span>홈</a>
+      <a href="../#destinations"><span>02</span>여행지</a>
+      <a href="../#experience"><span>03</span>서비스</a>
+      <a href="./"><span>04</span>항공기 <small>OUR FLEETS</small></a>
+    </nav>
+    <div class="drawer-bottom"><a href="../#top">예약</a><a href="#">고객지원</a></div>
+  </aside>
+
+  <main id="main">
+    <section class="fleet-hero">
+      <div class="shell fleet-hero-grid">
+        <div>
+          <p class="section-kicker">STELLARIS AIRLINES</p>
+          <h1>Our<br>Fleets.</h1>
+        </div>
+        <div>
+          <p class="fleet-lead">효율성과 편안함, 그리고 노선에 맞는 균형을 기준으로 Stellaris의 항공기를 구성합니다.</p>
+          <a class="fleet-back-link" href="../">← 홈으로 돌아가기</a>
+        </div>
+      </div>
+    </section>
+    <div class="fleet-band"></div>
+
+    <section class="fleet-detail">
+      <div class="shell">
+        <article class="fleet-card-large">
+          <div class="fleet-copy">
+            <p class="section-kicker">01 · NARROW BODY</p>
+            <h2>Airbus<br>A321neo</h2>
+            <p>중단거리 노선의 효율성과 편안함을 함께 고려한 Stellaris의 주력 기종입니다. 단정한 객실 구성과 충분한 항속거리를 바탕으로 아시아 주요 도시를 연결합니다.</p>
+            <div class="fleet-stats">
+              <div><strong>206</strong><span>SEATS</span></div>
+              <div><strong>7,400 km</strong><span>RANGE</span></div>
+              <div><strong>2</strong><span>CLASS</span></div>
+            </div>
+          </div>
+          <div class="fleet-art" aria-label="Airbus A321neo illustration">
+            <svg viewBox="0 0 980 440" role="img" aria-label="Stellaris Airbus A321neo illustration">
+              <g transform="translate(45 56)">
+                <path d="M47 206c110-25 226-40 344-47l208-92c21-9 41-9 65-3l27 7-157 90c77 2 154 10 230 24 33 6 67 18 93 32 14 8 14 25 0 33-31 16-80 22-148 20l-198-7-105 116h-64l48-122-183-15-68 59H48l35-76-36-5Z" fill="#f7f5eb"/>
+                <path d="M535 161 691 71l32 8-111 86" fill="#171817"/>
+                <path d="M371 258h118L383 379h-63Z" fill="#ded9b8"/>
+                <path d="M126 212c126-30 279-49 447-51" fill="none" stroke="#171817" stroke-width="7"/>
+                <g fill="#a89f52"><circle cx="593" cy="189" r="4"/><circle cx="615" cy="190" r="4"/><circle cx="637" cy="192" r="4"/><circle cx="659" cy="194" r="4"/><circle cx="681" cy="196" r="4"/></g>
+              </g>
+            </svg>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-top">
+      <a class="brand footer-brand" href="../">
+        <svg class="brand-symbol" viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M50 2 61 36 98 50 61 64 50 98 39 64 2 50 39 36Z" fill="currentColor"/>
+          <path d="M13 83c5 7 15 7 29-1 21-12 48-38 61-61-3 20-24 50-50 69-18 13-34 18-40 12-5-5-2-12 4-21-3 7-4 12-4 15 0 2 0 3 0 4Z" fill="currentColor"/>
+          <path d="m70 16 3 9 9 3-9 3-3 9-3-9-9-3 9-3Z" fill="currentColor"/>
+        </svg>
+        <span class="brand-wordmark">STELLARIS AIRLINES</span>
+      </a>
+      <div class="footer-links"><a href="../">홈</a><a href="../#destinations">여행지</a><a href="../#experience">서비스</a></div>
+    </div>
+    <div class="shell footer-bottom"><span>© 2026 STELLARIS AIRLINES</span><div><a href="#">이용약관</a><a href="#">개인정보처리방침</a></div></div>
+  </footer>
+
+  <script src="../app.js"></script>
+</body>
+</html>
