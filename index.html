@@ -4,79 +4,110 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#a89f52" />
-  <meta name="description" content="Stellaris Airlines — 차분하고 정돈된 새로운 여행 경험." />
+  <meta name="description" content="Stellaris Airlines — 더 단정하고 편안한 비행 경험." />
   <title>Stellaris Airlines</title>
   <link rel="icon" type="image/png" href="assets/stellaris-symbol.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* Brand lockup uses the exact user-supplied raster artwork, without redrawing. */
-    .site-header { background:#fff !important; color:#171817 !important; border-color:rgba(23,24,23,.13) !important; }
-    .brand { gap:12px; background:#fff; }
-    .brand-symbol-image { display:block; width:auto; height:46px; flex:0 0 auto; object-fit:contain; }
-    .brand-wordmark-image { display:block; width:auto; height:23px; max-width:min(238px,34vw); object-fit:contain; }
-    .footer-brand { display:inline-flex; background:#fff; padding:7px 10px; }
-    .hero { padding-top:86px; }
-    @media (max-width:760px) {
-      .brand { gap:8px; }
-      .brand-symbol-image { height:37px; }
-      .brand-wordmark-image { height:17px; max-width:175px; }
-      .hero { padding-top:74px; }
-    }
-  </style>
 </head>
-<body data-page="home">
+<body>
   <a class="skip-link" href="#main">본문으로 이동</a>
-
-  <header class="site-header" id="top">
-    <div class="header-inner">
+  <header class="site-header">
+    <div class="header-inner shell-wide">
       <a class="brand" href="./" aria-label="Stellaris Airlines 홈">
         <img class="brand-symbol-image" src="assets/stellaris-symbol.png" alt="" aria-hidden="true" />
         <img class="brand-wordmark-image" src="assets/stellaris-wordmark.png" alt="STELLARIS AIRLINES" />
       </a>
-
-      <div class="header-actions">
-        <button class="nav-reserve" type="button" data-open-booking>예약</button>
-        <button class="lang-button" type="button" aria-label="언어 선택">KR</button>
-        <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="drawer" aria-label="메뉴 열기">
-          <span></span><span></span><span></span>
-        </button>
+      <nav class="main-nav" aria-label="주요 메뉴">
+        <div class="nav-item">
+          <a href="./about-us/">항공사 정보</a>
+          <div class="mega-menu">
+            <div class="mega-inner shell-wide">
+              <div class="mega-title"><span>ABOUT STELLARIS</span><strong>항공사 정보</strong></div>
+              <div class="mega-links">
+                <a href="./about-us/">항공사 소개</a>
+                <a href="./about-us/#principles">경영 철학</a>
+                <a href="./our-fleets/">보유 항공기</a>
+                <a href="./about-us/#brand">브랜드 이야기</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="./flight-information/">운항 정보</a>
+          <div class="mega-menu">
+            <div class="mega-inner shell-wide">
+              <div class="mega-title"><span>FLIGHT INFORMATION</span><strong>운항 정보</strong></div>
+              <div class="mega-links">
+                <a href="./flight-information/#status">운항 현황</a>
+                <a href="./flight-information/#schedule">운항 스케줄</a>
+                <a href="./destinations/">취항지</a>
+                <a href="./our-fleets/">항공기 안내</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="./travel-info/">여행 준비</a>
+          <div class="mega-menu">
+            <div class="mega-inner shell-wide">
+              <div class="mega-title"><span>TRAVEL GUIDE</span><strong>여행 준비</strong></div>
+              <div class="mega-links">
+                <a href="./book-your-journey/">항공권 예약</a>
+                <a href="./travel-info/#check-in">체크인</a>
+                <a href="./travel-info/#baggage">수하물 안내</a>
+                <a href="./travel-info/#onboard">기내 서비스</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="./support/">지원 센터</a>
+          <div class="mega-menu">
+            <div class="mega-inner shell-wide">
+              <div class="mega-title"><span>SUPPORT</span><strong>지원 센터</strong></div>
+              <div class="mega-links">
+                <a href="./support/#notice">공지사항</a>
+                <a href="./support/#faq">자주 묻는 질문</a>
+                <a href="./support/#contact">문의하기</a>
+                <a href="./support/#airport">공항 안내</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-item"><a href="./membership/">Stellaris Club</a></div>
+      </nav>
+      <div class="header-tools">
+        <a class="book-link" href="./book-your-journey/">예약</a>
+        <a href="#">로그인</a><span class="tool-divider"></span><a href="#">회원가입</a>
+        <button class="mobile-menu-button" id="mobileMenuButton" type="button" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
+    </div>
+    <div class="mobile-nav" id="mobileNav" hidden>
+      <a href="./book-your-journey/">항공권 예약</a>
+      <a href="./about-us/">항공사 정보</a>
+      <a href="./flight-information/">운항 정보</a>
+      <a href="./destinations/">취항지</a>
+      <a href="./travel-info/">여행 준비</a>
+      <a href="./our-fleets/">항공기</a>
+      <a href="./support/">지원 센터</a>
+      <a href="./membership/">Stellaris Club</a>
     </div>
   </header>
 
-  <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
-  <aside class="drawer" id="drawer" aria-hidden="true" aria-label="전체 메뉴">
-    <div class="drawer-head">
-      <span>MENU</span>
-      <button class="drawer-close" id="drawerClose" type="button" aria-label="메뉴 닫기">×</button>
-    </div>
-    <nav class="drawer-nav">
-      <button type="button" data-open-booking><span>01</span>항공권 예약</button>
-      <a href="#destinations"><span>02</span>여행지</a>
-      <a href="#experience"><span>03</span>서비스</a>
-      <a href="./our-fleets/"><span>04</span>항공기 <small>OUR FLEETS</small></a>
-    </nav>
-    <div class="drawer-bottom">
-      <a href="#">예약 조회</a>
-      <a href="#">체크인</a>
-      <a href="#">고객지원</a>
-    </div>
-  </aside>
-
   <main id="main">
-    <section class="hero" aria-labelledby="hero-title">
+    <section class="hero-home">
       <div class="hero-grid" aria-hidden="true"></div>
-      <div class="hero-inner shell">
+      <div class="shell hero-home-inner">
         <div class="hero-copy">
-          <p class="kicker">STELLARIS AIRLINES</p>
-          <h1 id="hero-title">Fly beyond<br>the ordinary.</h1>
-          <p class="hero-description">복잡함은 덜고, 여행의 본질에 집중합니다.<br>Stellaris가 더 단정한 비행을 시작합니다.</p>
+          <p class="eyebrow light">STELLARIS AIRLINES</p>
+          <h1>Fly beyond<br>the ordinary.</h1>
+          <p>복잡함은 덜고 여행의 본질에 집중합니다.<br>예약부터 도착까지 더 단정한 비행 경험을 만듭니다.</p>
           <div class="hero-actions">
-            <button class="primary-button light" type="button" data-open-booking>항공권 예약</button>
-            <a class="text-link light" href="#destinations">여행지 보기 <span>↗</span></a>
+            <a class="button button-white" href="./book-your-journey/">항공권 예약</a>
+            <a class="hero-text-link" href="./about-us/">Stellaris 알아보기 <span>→</span></a>
           </div>
         </div>
         <div class="hero-aircraft" aria-hidden="true">
@@ -84,143 +115,56 @@
             <g transform="translate(45 56)">
               <path d="M47 206c110-25 226-40 344-47l208-92c21-9 41-9 65-3l27 7-157 90c77 2 154 10 230 24 33 6 67 18 93 32 14 8 14 25 0 33-31 16-80 22-148 20l-198-7-105 116h-64l48-122-183-15-68 59H48l35-76-36-5Z" fill="#f7f5eb"/>
               <path d="M535 161 691 71l32 8-111 86" fill="#171817"/>
-              <path d="M371 258h118L383 379h-63Z" fill="#ddd9bc"/>
-              <path d="M126 212c126-30 279-49 447-51" fill="none" stroke="#a89f52" stroke-width="8"/>
-              <path d="M575 160c10 0 20 1 30 1" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+              <path d="M371 258h118L383 379h-63Z" fill="#ded9b8"/>
+              <path d="M126 212c126-30 279-49 447-51" fill="none" stroke="#171817" stroke-width="7"/>
             </g>
           </svg>
         </div>
       </div>
-      <div class="hero-bottom shell">
-        <span>SEOUL · TOKYO · JEJU · BANGKOK</span>
-        <span class="scroll-hint">SCROLL ↓</span>
-      </div>
     </section>
 
-    <section class="intro-section shell">
-      <div class="intro-number">01</div>
-      <div class="intro-copy">
-        <p class="section-kicker">A QUIETER WAY TO FLY</p>
-        <h2>필요한 것만 남긴<br>새로운 항공 경험.</h2>
-      </div>
-      <p class="intro-text">예약부터 탑승까지 흐름을 단순하게 만들고, 객실에서는 편안함과 여백을 더했습니다. 눈에 띄기보다 오래 기억되는 서비스를 지향합니다.</p>
+    <section class="quick-panel shell">
+      <a href="./book-your-journey/"><span>01</span><strong>항공권 예약</strong><small>Book a flight</small></a>
+      <a href="./flight-information/#status"><span>02</span><strong>운항 현황</strong><small>Flight status</small></a>
+      <a href="./travel-info/#check-in"><span>03</span><strong>체크인 안내</strong><small>Check-in</small></a>
+      <a href="./support/"><span>04</span><strong>고객 지원</strong><small>Support</small></a>
     </section>
 
-    <section class="destination-section" id="destinations">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <p class="section-kicker">DESTINATIONS</p>
-            <h2>다음 여정은 어디로?</h2>
-          </div>
-          <a class="text-link" href="#">모든 노선 보기 <span>↗</span></a>
-        </div>
-
-        <div class="destination-grid">
-          <article class="destination-card tone-seoul">
-            <div class="destination-index">01</div>
-            <div class="destination-art city-art" aria-hidden="true"><i></i><i></i><i></i></div>
-            <div class="destination-meta"><span>KOREA</span><h3>Seoul</h3><p>ICN</p></div>
-          </article>
-          <article class="destination-card tone-tokyo">
-            <div class="destination-index">02</div>
-            <div class="destination-art sun-art" aria-hidden="true"><i></i></div>
-            <div class="destination-meta"><span>JAPAN</span><h3>Tokyo</h3><p>NRT</p></div>
-          </article>
-          <article class="destination-card tone-jeju">
-            <div class="destination-index">03</div>
-            <div class="destination-art island-art" aria-hidden="true"><i></i><i></i></div>
-            <div class="destination-meta"><span>KOREA</span><h3>Jeju</h3><p>CJU</p></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="experience-section" id="experience">
-      <div class="shell experience-layout">
-        <div class="experience-title">
-          <p class="section-kicker light-kicker">ON BOARD</p>
-          <h2>Simple.<br>Calm.<br>Thoughtful.</h2>
-        </div>
-        <div class="experience-list">
-          <article><span>01</span><div><h3>Calm Cabin</h3><p>시선을 방해하지 않는 색과 조도, 단정한 객실 디자인.</p></div></article>
-          <article><span>02</span><div><h3>Simple Journey</h3><p>필요한 정보만 빠르고 명확하게 전달하는 여행 흐름.</p></div></article>
-          <article><span>03</span><div><h3>Warm Service</h3><p>과하지 않지만 필요한 순간에는 정확히 닿는 서비스.</p></div></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="fleet-link-section shell">
+    <section class="home-about shell">
       <div>
-        <p class="section-kicker">OUR FLEETS</p>
-        <h2>Stellaris의 항공기를<br>만나보세요.</h2>
+        <p class="eyebrow">ABOUT STELLARIS</p>
+        <h2>항공 여행의 기본을<br>다시 정돈합니다.</h2>
       </div>
-      <a class="fleet-link" href="./our-fleets/">
-        <span>OUR FLEETS</span>
-        <strong>→</strong>
-      </a>
+      <div class="home-about-copy">
+        <p>Stellaris Airlines는 이동을 단순한 운송이 아니라 하나의 연속된 여행 경험으로 바라봅니다. 예약 과정은 이해하기 쉽게, 공항에서는 필요한 정보가 제때 보이게, 객실에서는 불필요한 복잡함을 줄이는 것이 우리가 생각하는 좋은 항공 서비스의 시작입니다.</p>
+        <p>안전과 운항의 기본을 최우선에 두고, 서울을 중심으로 아시아 주요 도시를 효율적으로 연결하는 네트워크를 지향합니다. 합리적인 운임과 단정한 서비스, 일관된 브랜드 경험을 통해 다시 찾고 싶은 항공사를 만드는 것이 Stellaris의 목표입니다.</p>
+        <a class="text-arrow" href="./about-us/">항공사 소개 자세히 보기 <span>→</span></a>
+      </div>
+    </section>
+
+    <section class="link-showcase">
+      <div class="shell">
+        <div class="section-head"><div><p class="eyebrow">PLAN YOUR JOURNEY</p><h2>여행에 필요한 정보</h2></div></div>
+        <div class="link-card-grid">
+          <a class="link-card olive-card" href="./destinations/"><span>DESTINATIONS</span><h3>취항지</h3><p>Stellaris가 연결하는 도시와 공항을 확인하세요.</p><b>→</b></a>
+          <a class="link-card dark-card" href="./travel-info/"><span>TRAVEL GUIDE</span><h3>여행 준비</h3><p>체크인, 수하물, 탑승과 기내 서비스 안내.</p><b>→</b></a>
+          <a class="link-card light-card" href="./our-fleets/"><span>OUR FLEETS</span><h3>항공기</h3><p>Stellaris의 항공기와 객실 구성을 만나보세요.</p><b>→</b></a>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="shell footer-top">
-      <a class="brand footer-brand" href="./" aria-label="Stellaris Airlines 홈">
-        <img class="brand-symbol-image" src="assets/stellaris-symbol.png" alt="" aria-hidden="true" />
-        <img class="brand-wordmark-image" src="assets/stellaris-wordmark.png" alt="STELLARIS AIRLINES" />
-      </a>
-      <div class="footer-links">
-        <a href="#">예약 조회</a><a href="#">체크인</a><a href="./our-fleets/">항공기</a><a href="#">고객지원</a>
+    <div class="shell footer-main">
+      <a class="brand footer-brand" href="./"><img class="brand-symbol-image" src="assets/stellaris-symbol.png" alt=""/><img class="brand-wordmark-image" src="assets/stellaris-wordmark.png" alt="STELLARIS AIRLINES"/></a>
+      <div class="footer-columns">
+        <div><strong>항공사</strong><a href="./about-us/">항공사 소개</a><a href="./our-fleets/">항공기</a></div>
+        <div><strong>여행</strong><a href="./book-your-journey/">예약</a><a href="./destinations/">취항지</a><a href="./travel-info/">여행 준비</a></div>
+        <div><strong>지원</strong><a href="./support/">지원 센터</a><a href="./membership/">Stellaris Club</a></div>
       </div>
     </div>
-    <div class="shell footer-bottom">
-      <span>© 2026 STELLARIS AIRLINES</span>
-      <div><a href="#">이용약관</a><a href="#">개인정보처리방침</a></div>
-    </div>
+    <div class="shell footer-bottom"><span>© 2026 STELLARIS AIRLINES</span><div><a href="#">이용약관</a><a href="#">개인정보처리방침</a></div></div>
   </footer>
-
-  <div class="booking-modal" id="bookingModal" hidden>
-    <div class="booking-backdrop" data-close-booking></div>
-    <section class="booking-dialog" role="dialog" aria-modal="true" aria-labelledby="bookingTitle">
-      <div class="booking-dialog-head">
-        <div>
-          <p class="section-kicker">BOOK YOUR JOURNEY</p>
-          <h2 id="bookingTitle">항공권 예약</h2>
-        </div>
-        <button class="modal-close" type="button" data-close-booking aria-label="예약창 닫기">×</button>
-      </div>
-
-      <div class="booking-tabs" role="tablist" aria-label="예약 메뉴">
-        <button class="booking-tab active" type="button" data-booking-tab="round" role="tab" aria-selected="true">왕복</button>
-        <button class="booking-tab" type="button" data-booking-tab="oneway" role="tab" aria-selected="false">편도</button>
-        <button class="booking-tab" type="button" data-booking-tab="lookup" role="tab" aria-selected="false">예약 조회</button>
-      </div>
-
-      <form class="booking-panel" id="bookingForm" data-panel="flight">
-        <div class="route-row">
-          <label class="booking-field route-field"><span>출발지</span><input id="fromInput" value="서울 / 인천" /><small>ICN · 인천국제공항</small></label>
-          <button class="swap-button" id="swapButton" type="button" aria-label="출발지와 도착지 바꾸기">⇄</button>
-          <label class="booking-field route-field"><span>도착지</span><input id="toInput" value="도쿄 / 나리타" /><small>NRT · 나리타국제공항</small></label>
-        </div>
-        <div class="detail-row">
-          <label class="booking-field"><span>출발일</span><input id="departDate" type="date" /></label>
-          <label class="booking-field" id="returnField"><span>귀국일</span><input id="returnDate" type="date" /></label>
-          <button class="booking-field passenger-field" type="button"><span>탑승객 / 좌석</span><strong>성인 1 · 일반석</strong></button>
-        </div>
-        <button class="booking-submit" type="submit">항공권 검색 <span>→</span></button>
-        <p class="form-message" id="formMessage" aria-live="polite"></p>
-      </form>
-
-      <form class="booking-panel lookup-panel" id="lookupForm" data-panel="lookup" hidden>
-        <div class="lookup-grid">
-          <label class="booking-field"><span>예약번호</span><input type="text" placeholder="예: ST123456" /></label>
-          <label class="booking-field"><span>성 / Last name</span><input type="text" placeholder="탑승객 성" /></label>
-        </div>
-        <button class="booking-submit" type="submit">예약 조회 <span>→</span></button>
-        <p class="form-message" id="lookupMessage" aria-live="polite"></p>
-      </form>
-    </section>
-  </div>
-
   <script src="app.js"></script>
 </body>
 </html>
