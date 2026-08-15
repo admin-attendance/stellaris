@@ -15,3 +15,6 @@ Stellaris Air 콘셉트 웹사이트입니다.
 - `index.html` — 페이지 구조
 - `styles.css` — 디자인 및 반응형 스타일
 - `app.js` — 기본 인터랙션
+
+
+### 이거 만든사람 개천재
