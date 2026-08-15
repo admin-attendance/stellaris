@@ -6,10 +6,23 @@
   <meta name="theme-color" content="#a89f52" />
   <meta name="description" content="Stellaris Airlines Our Fleets" />
   <title>Our Fleets | Stellaris Airlines</title>
+  <link rel="icon" type="image/png" href="../assets/stellaris-symbol.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .site-header { background:#fff !important; color:#171817 !important; border-color:rgba(23,24,23,.13) !important; }
+    .brand { gap:12px; background:#fff; }
+    .brand-symbol-image { display:block; width:auto; height:46px; flex:0 0 auto; object-fit:contain; }
+    .brand-wordmark-image { display:block; width:auto; height:23px; max-width:min(238px,34vw); object-fit:contain; }
+    .footer-brand { display:inline-flex; background:#fff; padding:7px 10px; }
+    @media (max-width:760px) {
+      .brand { gap:8px; }
+      .brand-symbol-image { height:37px; }
+      .brand-wordmark-image { height:17px; max-width:175px; }
+    }
+  </style>
 </head>
 <body data-page="fleets">
   <a class="skip-link" href="#main">본문으로 이동</a>
@@ -17,12 +30,8 @@
   <header class="site-header" id="top">
     <div class="header-inner">
       <a class="brand" href="../" aria-label="Stellaris Airlines 홈">
-        <svg class="brand-symbol" viewBox="0 0 100 100" aria-hidden="true">
-          <path d="M50 2 61 36 98 50 61 64 50 98 39 64 2 50 39 36Z" fill="currentColor"/>
-          <path d="M13 83c5 7 15 7 29-1 21-12 48-38 61-61-3 20-24 50-50 69-18 13-34 18-40 12-5-5-2-12 4-21-3 7-4 12-4 15 0 2 0 3 0 4Z" fill="currentColor"/>
-          <path d="m70 16 3 9 9 3-9 3-3 9-3-9-9-3 9-3Z" fill="currentColor"/>
-        </svg>
-        <span class="brand-wordmark">STELLARIS AIRLINES</span>
+        <img class="brand-symbol-image" src="../assets/stellaris-symbol.png" alt="" aria-hidden="true" />
+        <img class="brand-wordmark-image" src="../assets/stellaris-wordmark.png" alt="STELLARIS AIRLINES" />
       </a>
 
       <div class="header-actions">
@@ -96,13 +105,9 @@
 
   <footer class="site-footer">
     <div class="shell footer-top">
-      <a class="brand footer-brand" href="../">
-        <svg class="brand-symbol" viewBox="0 0 100 100" aria-hidden="true">
-          <path d="M50 2 61 36 98 50 61 64 50 98 39 64 2 50 39 36Z" fill="currentColor"/>
-          <path d="M13 83c5 7 15 7 29-1 21-12 48-38 61-61-3 20-24 50-50 69-18 13-34 18-40 12-5-5-2-12 4-21-3 7-4 12-4 15 0 2 0 3 0 4Z" fill="currentColor"/>
-          <path d="m70 16 3 9 9 3-9 3-3 9-3-9-9-3 9-3Z" fill="currentColor"/>
-        </svg>
-        <span class="brand-wordmark">STELLARIS AIRLINES</span>
+      <a class="brand footer-brand" href="../" aria-label="Stellaris Airlines 홈">
+        <img class="brand-symbol-image" src="../assets/stellaris-symbol.png" alt="" aria-hidden="true" />
+        <img class="brand-wordmark-image" src="../assets/stellaris-wordmark.png" alt="STELLARIS AIRLINES" />
       </a>
       <div class="footer-links"><a href="../">홈</a><a href="../#destinations">여행지</a><a href="../#experience">서비스</a></div>
     </div>
